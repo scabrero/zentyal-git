@@ -1,0 +1,11 @@
+This is a GIT module for Zentyal small business server. It is intended to manage
+repository permissions using gitolite and it is fully integrated with zentyal
+user management.
+
+Note that this is a beta version, bug reports, suggestions etc. are welcome.
+
+This module depends on gitolite, not available from official ubuntu lucid repositories.
+Add the following PPA to install gitolite:
+
+deb http://ppa.launchpad.net/fabianarias/gitolite/ubuntu lucid main
+

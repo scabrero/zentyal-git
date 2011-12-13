@@ -1,0 +1,3 @@
+* Integrate user key management in LDAP
+* Users can have more than one key to connect from different hosts
+* Rewrite gitolite.conf if user moved between groups

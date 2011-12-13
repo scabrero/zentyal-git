@@ -1,0 +1,59 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+</%init>
+    <h3><% __('GIT account') %></h3>
+
+    <script>
+        function enableGitKey(enable) {
+            if (enable == "yes") {
+                document.getElementById('key').disabled=false;
+            } else {
+                document.getElementById('key').disabled=true;
+            }
+        }
+    </script>
+
+    <table class="formTable">
+    <form action="/GIT/GitUserOptions" method="post">
+        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+    <tr>
+    <td class="tright">
+        <span class="ftitle"><% __('User account') %>:</span>
+    </td>
+    <td>
+        <select name="active" enabled onchange="enableGitKey(this.value)">
+%    if ($params->{'active'} eq 'yes') {
+        <option value="no" ><% __('Disabled') %></option>
+        <option selected value="yes" ><% __('Enabled') %></option>
+%    } else {
+        <option selected value="no" ><% __('Disabled') %></option>
+        <option value="yes" ><% __('Enabled') %></option>
+%    }
+        </select>
+    </td>
+    </tr>
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Public key') %>:</span>
+        </td>
+        <td>
+%       if (($params->{'active'} eq 'yes') and (defined $params->{'key'} )) {
+            <textarea rows="8" cols="60" name="key" id="key"><% $params->{'key'} %></textarea>
+%       } else {
+            <textarea disabled="disabled" rows="8" cols="60" name="key" id="key"></textarea>
+%       }
+        </td>
+    </tr>
+    <tr>
+    <td></td>
+    <td>
+        <input class="inputButton" type="submit" name="change"
+               value="<% __('Change') %>"
+               alt="<% __('Change') %>" />
+    </td>
+    </tr>
+    </form>
+    </table>

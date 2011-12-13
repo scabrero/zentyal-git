@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sudo -H -u gitolite rm -f /var/lib/gitolite/.ssh/id_rsa*
+sudo -H -u gitolite ssh-keygen -q -N "" -f /var/lib/gitolite/.ssh/id_rsa
+sudo -H -u gitolite ssh-keyscan localhost >> /var/lib/gitolite/.ssh/known_hosts 2>/dev/null
+sudo -H -u gitolite cp /var/lib/gitolite/.ssh/id_rsa.pub /tmp/gitolite.pub
+sudo -H -u gitolite chmod 666 /tmp/gitolite.pub
+sudo -H -u gitolite gl-setup -q /tmp/gitolite.pub
+sudo -H -u gitolite git clone gitolite@localhost:gitolite-admin.git /var/lib/gitolite/gitolite-admin
+
+exit 0

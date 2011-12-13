@@ -1,0 +1,38 @@
+<%args>
+    @repos
+    @groups
+</%args>
+<%init>
+</%init>
+
+% foreach my $group (@groups) {
+%    my $g = $group->{'group'};
+%    my $members = "";
+%    foreach my $user (@{ $group->{'members'} }) {
+%        $members .= "$user ";
+%    }
+%    if ($members and $members ne "") {
+@<% $g %> = <% $members %>
+%    }
+% }
+
+repo    gitolite-admin
+        RW+     =   gitolite
+
+% foreach my $repo (@repos) {
+%   if (($repo->{'readOnly'} and $repo->{'readOnly'} ne "") or
+%       ($repo->{'readWrite'} and $repo->{'readWrite'} ne "") or
+%       ($repo->{'readWriteRewind'} and $repo->{'readWriteRewind'} ne "")) {
+repo    <% $repo->{'repo'} %>
+%       if ($repo->{'readOnly'} and $repo->{'readOnly'} ne "") {
+        R       = <% $repo->{'readOnly'} %>
+%       }
+%       if ($repo->{'readWrite'} and $repo->{'readWrite'} ne "") {
+        RW      = <% $repo->{'readWrite'} %>
+%       }
+%       if ($repo->{'readWriteRewind'} and $repo->{'readWriteRewind'} ne "") {
+        RW+     = <% $repo->{'readWriteRewind'} %>
+%       }
+
+%   }
+% }
