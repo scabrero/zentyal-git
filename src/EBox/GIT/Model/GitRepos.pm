@@ -66,6 +66,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'GitRepos',
+        'pageTitle' => __('GIT SCM'),
         'printableTableName' => __('Repositories'),
         'modelDomain' => 'GIT',
         'defaultActions' => ['add', 'del', 'editField', 'changeView'],
